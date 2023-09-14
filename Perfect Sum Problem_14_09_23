@@ -1,0 +1,62 @@
+//{ Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+class GfG
+{
+    public static void main(String args[])
+        {
+            Scanner sc = new Scanner(System.in);
+            int t = sc.nextInt();
+            while(t-->0)
+                {
+                    int n = sc.nextInt();
+                    int sum = sc.nextInt();
+                    int arr[] = new int[n];
+                    for(int i = 0;i<n;i++)
+                    arr[i] = sc.nextInt();
+                    
+                    Solution ob = new Solution();
+                    System.out.println(ob.perfectSum(arr,n,sum));
+                }
+        }
+}    
+// } Driver Code Ends
+
+
+class Solution{
+    static int mod=(int)1e9+7;
+
+	public int perfectSum(int arr[],int n, int sum) 
+	{ 
+	    // Your code goes here
+	    int[][] dp=new int[n+1][sum+1];
+	    for(int[] it:dp)
+	    {
+	        Arrays.fill(it,-1);
+	    }
+	    return solve(arr,0,n,sum,dp);
+	} 
+	public static int solve(int arr[],int st,int n,int k,int[][] dp)
+	{
+	    if(st==n)
+	    {
+	        if(k==0)
+	        {
+	            return 1;
+	        }
+	        else{
+	        return 0;
+	        }
+	    }
+	    if(dp[st][k]!=-1)return dp[st][k];
+	    int pick=0;
+	    if(arr[st]<=k){
+	        pick=solve(arr,st+1,n,k-arr[st],dp)%mod;
+	    }
+	    int not=solve(arr,st+1,n,k,dp)%mod;
+	    
+	    return dp[st][k]=(pick+not)%mod;
+	}
+}
