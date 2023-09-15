@@ -1,0 +1,22 @@
+ static int solve(int indx, int arr[],int N ,int terget,int dp[][]){
+        //base case
+        if(indx>=N){
+            return 0;
+        }
+        if(terget<0){
+            return 0;
+        }
+        if(terget==0){
+            return 1;
+        }
+        if(dp[indx][terget]!=-1){
+             return dp[indx][terget];
+        }
+        int incl=solve(indx+1,arr,N,terget-arr[indx],dp);
+        int excl=solve(indx+1,arr,N,terget,dp);
+        int ans=(incl + excl);   // num of correct Possible result can be greater than 1 .
+        if(ans>=1){
+           return  dp[indx][terget]=1; 
+        }
+        return  dp[indx][terget]=0;
+    }
